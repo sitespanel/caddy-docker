@@ -26,7 +26,7 @@ Enterprise Caddy build with production-ready plugins. Same image as `morsalin134
 # production.yml
 services:
   caddy:
-    image: easydigital/caddy:2.11.4
+    image: easydigital/caddy:2.11.7
     restart: always
     ports:
       - "80:80"
@@ -57,7 +57,7 @@ volumes:
 
 ## Available Tags
 
-`latest`, `2.11.4` — pin to a specific version for production.
+`latest`, `2.11.7` — pin to a specific version for production.
 
 ## ❓ FAQ
 

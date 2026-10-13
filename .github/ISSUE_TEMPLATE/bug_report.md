@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 **Image tag(s) affected**
-<!-- e.g. morsalin1342/caddy:2.11.4 -->
+<!-- e.g. morsalin1342/caddy:2.11.7 -->
 
 **Describe the bug**
 <!-- A clear description of what's wrong -->

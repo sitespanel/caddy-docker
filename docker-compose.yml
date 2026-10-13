@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   caddy:
-    image: morsalin1342/caddy:latest
+    image: morsalin1342/caddy:2.11.7
     ports:
       - "80:80"
       - "443:443"

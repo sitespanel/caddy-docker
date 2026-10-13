@@ -69,7 +69,7 @@ example.com {
 
 ## Available Tags
 
-`latest`, `2.11.4` — version-tagged for production stability.
+`latest`, `2.11.7` — version-tagged for production stability.
 
 ## ❓ FAQ
 

@@ -53,7 +53,7 @@ For more advanced use cases, you can use the [Caddy Admin API](https://caddyserv
 This image is tagged with two schemes:
 
 *   `morsalin1342/caddy:latest`: Always points to the most recently built image from the `master` branch.
-*   `morsalin1342/caddy:<version>`: (e.g., `morsalin1342/caddy:2.11.4`) A specific version tag corresponding to the version of Caddy used in the build.
+*   `morsalin1342/caddy:<version>`: (e.g., `morsalin1342/caddy:2.11.7`) A specific version tag corresponding to the version of Caddy used in the build.
 
 It is recommended to use a specific version tag in production environments for stability.
 
@@ -61,31 +61,37 @@ It is recommended to use a specific version tag in production environments for s
 
 This image extends the official Caddy image with the following plugins:
 
-*   **Web Application Firewall (Coraza)**: `github.com/corazawaf/coraza-caddy/v2`
+*   **Web Application Firewall (Coraza)**: `github.com/corazawaf/coraza-caddy/v2` (v2.6.2)
     *   OWASP Coraza is ModSecurity/SecLang compatible. The OWASP Core Rule Set is
         compiled into the binary — use `load_owasp_crs` and the `@`-prefixed include
         paths, with no rule files to download or mount.
-*   **IP Range Blocking (Defender)**: `pkg.jsn.cam/caddy-defender`
+*   **IP Range Blocking (Defender)**: `pkg.jsn.cam/caddy-defender` (v0.10.1)
     *   Blocks, drops, or garbles requests from embedded IP range lists — AI crawlers
         (OpenAI, Anthropic, Perplexity), cloud providers (AWS, GCP, Azure), VPN exits —
         plus your own CIDRs. Note the module path is the vanity import
         `pkg.jsn.cam/caddy-defender`, not the GitHub path.
-*   **Rate Limiting**: `github.com/mholt/caddy-ratelimit`
+*   **Rate Limiting**: `github.com/mholt/caddy-ratelimit` (v0.1.0)
     *   Sliding-window rate limiting with multiple zones, keyed on any request
         placeholder (client IP, host, header). Sets `Retry-After` automatically.
-*   **Brotli Compression**: `github.com/dunglas/caddy-cbrotli`
-*   **HTTP Caching (Souin)**: `github.com/darkweak/souin/plugins/caddy`
+*   **Brotli Compression**: `github.com/dunglas/caddy-cbrotli` (v1.0.1)
+*   **HTTP Caching (Souin)**: `github.com/darkweak/souin/plugins/caddy` (v1.7.9)
     *   Storage backends:
-        *   `github.com/darkweak/storages/go-redis/caddy` (Redis)
-        *   `github.com/darkweak/storages/otter/caddy` (in-memory)
-        *   `github.com/darkweak/storages/simplefs/caddy` (file-based)
+        *   `github.com/darkweak/storages/go-redis/caddy` (Redis, v0.0.20)
+        *   `github.com/darkweak/storages/otter/caddy` (in-memory, v0.0.20)
+        *   `github.com/darkweak/storages/simplefs/caddy` (file-based, v0.0.20)
 *   **DNS Providers for ACME TLS**:
-    *   `github.com/caddy-dns/vultr`
-    *   `github.com/caddy-dns/azure`
-    *   `github.com/caddy-dns/googleclouddns`
-    *   `github.com/caddy-dns/digitalocean`
-    *   `github.com/caddy-dns/cloudflare`
-    *   `github.com/caddy-dns/route53`
+    *   `github.com/caddy-dns/vultr` (v0.0.0-20250723121531)
+    *   `github.com/caddy-dns/azure` (v0.6.0)
+    *   `github.com/caddy-dns/googleclouddns` (v1.1.0)
+    *   `github.com/caddy-dns/digitalocean` (v0.0.0-20250606074528)
+    *   `github.com/caddy-dns/cloudflare` (v0.2.4)
+    *   `github.com/caddy-dns/route53` (v1.6.2)
+
+Every plugin is pinned to an explicit version in the `Dockerfile` (the versions above are those built on 2026-10-10), so a rebuild never picks up a newer plugin by accident. `caddy list-modules --versions` prints them from inside the image.
+
+## Tools in the image
+
+Besides the `caddy` binary: `gosu` (start as root, drop to another user) and `acl` (`setfacl`, `getfacl`), on top of the official Alpine-based image. The binary keeps the file capability `cap_net_bind_service=ep`, so a container that drops all capabilities must add `NET_BIND_SERVICE` back.
 
 ## ❓ FAQ
 

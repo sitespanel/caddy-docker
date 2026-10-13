@@ -4,7 +4,7 @@
 
 | Version  | Supported          |
 |----------|--------------------|
-| 2.11.4   | :white_check_mark: |
+| 2.11.7   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
