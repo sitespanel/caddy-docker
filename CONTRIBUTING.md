@@ -28,8 +28,7 @@ Thanks for your interest in improving this Caddy Docker image!
 ```
 .
 ├── Dockerfile                 # Multi-stage Caddy build
-├── cloudbuild.yaml             # Cloud Build: build, scan, SBOM, push with provenance
-├── cloudbuild-pr.yaml          # Cloud Build: pull-request build and scan, no push
+├── .github/workflows/image.yml   # GitHub Actions: lint, build, scan, push to ghcr.io, attest (BUILD.md)
 ├── README.md                  # GitHub README
 ```
 
