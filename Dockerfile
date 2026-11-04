@@ -24,7 +24,7 @@ FROM caddy:2.11.7
 
 LABEL org.opencontainers.image.title="caddy" \
       org.opencontainers.image.description="Caddy with Coraza WAF, rate limiting, IP blocking, Brotli, Souin cache and 6 DNS providers" \
-      org.opencontainers.image.source="https://github.com/morsalin1342/caddy-docker" \
+      org.opencontainers.image.source="https://github.com/sitespanel/caddy-docker" \
       org.opencontainers.image.licenses="MIT"
 
 RUN apk add --no-cache acl brotli-libs gosu

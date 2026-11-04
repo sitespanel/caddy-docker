@@ -1,6 +1,6 @@
 # Building this image with Google Cloud Build
 
-This repository is the SitesPanel copy of `caddy-docker`. SitesPanel builds it with **Google Cloud Build** and serves it from **Artifact Registry** (`europe` multi-region, repository `sitespanel-images`), as decided in the panel's ADR-0065. Docker Hub is not used by SitesPanel servers.
+This repository is the source of SitesPanel's `caddy` image. SitesPanel builds it with **Google Cloud Build** and serves it from **Artifact Registry** (`europe` multi-region, repository `sitespanel-images`), as decided in the panel's ADR-0065. Artifact Registry is not used by SitesPanel servers.
 
 ## What runs
 
@@ -74,6 +74,5 @@ Record every created resource in the SitesPanel cloud-resources register with it
 ## Notes
 
 - The scanner is Trivy 0.76.0 pinned by digest. A scan reads the image as a saved archive, so no step needs the Docker socket beyond the Docker builder.
-- Base images (`php`, `nginx`, `httpd`, `caddy`, `debian`, `dunglas/frankenphp`) and the scanner come from Docker Hub, which limits anonymous pulls per address; Cloud Build's shared addresses can hit that limit. If builds fail on pulls, add an Artifact Registry **remote repository** for Docker Hub in `europe` and pull base images through it (a later step, not needed to start).
-- The old GitHub Actions workflows (Docker Hub publishing, the docs check against the personal `.github` manifest) were removed from this copy; the personal repositories keep them.
-- PHP 8.2 is not built here: SitesPanel offers 8.3 to 8.5 (panel ADR-0034). The personal repositories still build 8.2 for public users.
+- Base images (`php`, `nginx`, `httpd`, `caddy`, `debian`, `dunglas/frankenphp`) and the scanner come from Docker Hub's official images, which limits anonymous pulls per address; Cloud Build's shared addresses can hit that limit. If builds fail on pulls, add an Artifact Registry **remote repository** for Docker Hub in `europe` and pull base images through it (a later step, not needed to start).
+- PHP 8.2 is not built here: SitesPanel offers 8.3 to 8.5 (panel ADR-0034).

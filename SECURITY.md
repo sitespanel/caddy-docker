@@ -10,7 +10,7 @@
 
 **Please report privately**, using GitHub's private vulnerability reporting:
 
-- [Report a vulnerability](https://github.com/morsalin1342/caddy-docker/security/advisories/new)
+- [Report a vulnerability](https://github.com/sitespanel/caddy-docker/security/advisories/new)
 
 That keeps the details between us until there is a fix to ship. Please do not open a public
 issue for a security problem — a public issue discloses the vulnerability to everyone,

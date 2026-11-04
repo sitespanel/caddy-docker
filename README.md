@@ -1,14 +1,11 @@
 # Production-Ready Caddy Docker Image with Essential Plugins
 
-> **SitesPanel copy.** This repository is SitesPanel's copy of the image source. SitesPanel builds it with Google Cloud Build and serves it from Artifact Registry (`europe`); see [CLOUDBUILD.md](CLOUDBUILD.md). The Docker Hub publishing of the original repository does not run here.
+> **SitesPanel image source.** SitesPanel builds this image with Google Cloud Build and serves it from Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy`); see [CLOUDBUILD.md](CLOUDBUILD.md). Replace `PROJECT` with SitesPanel's Google Cloud project.
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/morsalin1342/caddy.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/morsalin1342/caddy)
-[![GitHub Stars](https://img.shields.io/github/stars/morsalin1342/caddy-docker?style=for-the-badge&logo=github)](https://github.com/morsalin1342/caddy-docker)
-[![License](https://img.shields.io/github/license/morsalin1342/caddy-docker?style=for-the-badge)](https://github.com/morsalin1342/caddy-docker/blob/master/LICENSE)
 
 This repository contains the build instructions for a customized [Caddy](https://caddyserver.com/) Docker image — a high-performance **reverse proxy** and **web server** with **automatic HTTPS** via Let's Encrypt. It includes the standard Caddy features plus a selection of commonly used plugins for DNS validation, caching, web application firewalling, rate limiting, and more.
 
-The image is automatically built and published to [Docker Hub](https://hub.docker.com/r/morsalin1342/caddy) via GitHub Actions.
+The image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (see [CLOUDBUILD.md](CLOUDBUILD.md)).
 
 ## ✨ Why This Image?
 
@@ -34,7 +31,7 @@ docker run -d --name caddy \
     -v /path/to/your/Caddyfile:/etc/caddy/Caddyfile:ro \
     -v caddy_data:/data \
     -v caddy_config:/config \
-    morsalin1342/caddy:latest
+    europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:latest
 ```
 
 ### Persistent Data
@@ -54,8 +51,8 @@ For more advanced use cases, you can use the [Caddy Admin API](https://caddyserv
 
 This image is tagged with two schemes:
 
-*   `morsalin1342/caddy:latest`: Always points to the most recently built image from the `master` branch.
-*   `morsalin1342/caddy:<version>`: (e.g., `morsalin1342/caddy:2.11.7`) A specific version tag corresponding to the version of Caddy used in the build.
+*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:latest`: Always points to the most recently built image from the `master` branch.
+*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:<version>`: (e.g., `europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:2.11.7`) A specific version tag corresponding to the version of Caddy used in the build.
 
 It is recommended to use a specific version tag in production environments for stability.
 
@@ -180,7 +177,7 @@ Matching is by IP range, so this catches declared crawler infrastructure — not
 that spoofs a user agent from a residential address.
 
 **Q: Can I use this image with FrankenPHP?**
-A: This is a standalone Caddy image. For a pre-configured Caddy+PHP setup, use the [morsalin1342/frankenphp](https://hub.docker.com/r/morsalin1342/frankenphp) image instead, which bundles this same Caddy plugin stack with PHP.
+A: This is a standalone Caddy image. For a pre-configured Caddy+PHP setup, use the [europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp](https://github.com/sitespanel/frankenphp-docker) image instead, which bundles this same Caddy plugin stack with PHP.
 
 ---
 
@@ -189,21 +186,21 @@ A: This is a standalone Caddy image. For a pre-configured Caddy+PHP setup, use t
 ## Related Images & Tools
 
 <!-- BEGIN GENERATED: related (from images.yaml in the org .github repository; do not edit by hand) -->
-Every image is published under `morsalin1342` (personal) and `easydigital` (organization), from the same build.
+Every image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images`), with SLSA provenance and an SBOM per image.
 
 | Repository | Images | Description |
 |---|---|---|
-| [frankenphp-docker](https://github.com/morsalin1342/frankenphp-docker) | `morsalin1342/frankenphp` · `easydigital/frankenphp` | Caddy + PHP app server in one container |
-| [php-docker](https://github.com/morsalin1342/php-docker) | `morsalin1342/php` · `easydigital/php` | Traditional PHP-FPM & CLI images |
-| [nginx-docker](https://github.com/morsalin1342/nginx-docker) | `morsalin1342/nginx` · `easydigital/nginx` | nginx with ModSecurity 3, Brotli, zstd & GeoIP2 |
-| [apache-docker](https://github.com/morsalin1342/apache-docker) | `morsalin1342/apache` · `easydigital/apache` | Apache as a static server or php-fpm application server, no PHP inside |
+| [frankenphp-docker](https://github.com/sitespanel/frankenphp-docker) | `sitespanel-images/frankenphp` | Caddy + PHP app server in one container |
+| [php-docker](https://github.com/sitespanel/php-docker) | `sitespanel-images/php` | Traditional PHP-FPM & CLI images |
+| [nginx-docker](https://github.com/sitespanel/nginx-docker) | `sitespanel-images/nginx` | nginx with ModSecurity 3, Brotli, zstd & GeoIP2 |
+| [apache-docker](https://github.com/sitespanel/apache-docker) | `sitespanel-images/apache` | Apache as a static server or php-fpm application server, no PHP inside |
 <!-- END GENERATED: related -->
 
 ---
 
 ## Feedback and Issues
 
-If you have suggestions or find a bug, please [open an issue](https://github.com/morsalin1342/caddy-docker/issues) on the GitHub repository.
+If you have suggestions or find a bug, please [open an issue](https://github.com/sitespanel/caddy-docker/issues) on the GitHub repository.
 
 ---
 

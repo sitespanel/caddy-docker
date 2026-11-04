@@ -28,10 +28,9 @@ Thanks for your interest in improving this Caddy Docker image!
 ```
 .
 ├── Dockerfile                 # Multi-stage Caddy build
-├── .github/workflows/         # CI/CD pipeline
+├── cloudbuild.yaml             # Cloud Build: build, scan, SBOM, push with provenance
+├── cloudbuild-pr.yaml          # Cloud Build: pull-request build and scan, no push
 ├── README.md                  # GitHub README
-├── README.dockerhub.md        # Personal Docker Hub description
-└── README.dockerhub-org.md    # Org Docker Hub description
 ```
 
 ## Version Upgrades
