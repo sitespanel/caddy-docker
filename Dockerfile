@@ -27,5 +27,7 @@ LABEL org.opencontainers.image.title="caddy" \
       org.opencontainers.image.source="https://github.com/sitespanel/caddy-docker" \
       org.opencontainers.image.licenses="MIT"
 
+# Alpine security fixes released after the upstream caddy image was built (a fixable critical CVE stops the image build).
+RUN apk upgrade --no-cache
 RUN apk add --no-cache acl brotli-libs gosu
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
