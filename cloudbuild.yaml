@@ -1,0 +1,77 @@
+# Cloud Build: Caddy image for SitesPanel.
+# Publish build: runs on a push to main and on the weekly rebuild. Builds, scans, writes SBOMs,
+# then pushes to Artifact Registry with SLSA provenance (SitesPanel ADR-0065). Nothing is pushed
+# when a scan finds a fixable critical vulnerability.
+
+substitutions:
+  _AR_HOST: europe-docker.pkg.dev
+  _AR_REPOSITORY: sitespanel-images
+  _SBOM_BUCKET: sitespanel-image-sboms-europe  # set per trigger if the bucket has another name
+
+steps:
+  # The version tag comes from the Dockerfile, as in the old GitHub workflow.
+  - id: version
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        v=$$(grep -oP '^FROM caddy:\K[0-9]+\.[0-9]+\.[0-9]+' Dockerfile | head -n 1)
+        [ -n "$$v" ] || { echo "could not read the version from the Dockerfile"; exit 1; }
+        echo "$$v" > /workspace/version
+        echo "version $$v"
+    waitFor: ['-']
+  - id: build-caddy
+    name: gcr.io/cloud-builders/docker
+    env: ['DOCKER_BUILDKIT=1']
+    args:
+      - build
+      - --label=org.opencontainers.image.source=https://github.com/sitespanel/caddy-docker
+      - --label=org.opencontainers.image.revision=$COMMIT_SHA
+      - --tag=${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:$SHORT_SHA
+      - --tag=${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:latest
+      - .
+    waitFor: ['-']
+  - id: save-caddy
+    name: gcr.io/cloud-builders/docker
+    args: ['save', '--output', '/workspace/caddy.tar', '${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:$SHORT_SHA']
+    waitFor: ['build-caddy']
+  - id: scan-caddy
+    name: aquasec/trivy:0.76.0@sha256:2416d1f74045b57274df1a340eee6b510cacd73c66a6ccb8da092b117eb7d222
+    entrypoint: sh
+    args:
+      - -ceu
+      - |
+        trivy image --cache-dir /workspace/.trivy --input /workspace/caddy.tar --severity CRITICAL --ignore-unfixed --exit-code 1 --format table
+        mkdir -p /workspace/sbom
+        trivy image --cache-dir /workspace/.trivy --input /workspace/caddy.tar --format spdx-json --output /workspace/sbom/caddy.spdx.json
+    waitFor: ['save-caddy']
+  # Version tags (read from the Dockerfile) are pushed after every scan passed. They name the
+  # same digests as the tags in `images` below, which carry the build provenance.
+  - id: push-version-tags
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        v=$$(cat /workspace/version)
+        docker tag ${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:$SHORT_SHA ${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:$$v
+        docker push ${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:$$v
+    waitFor: ['scan-caddy', 'version']
+
+# Pushed only when every step succeeded; Cloud Build attaches SLSA provenance to these digests.
+images:
+  - ${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:$SHORT_SHA
+  - ${_AR_HOST}/$PROJECT_ID/${_AR_REPOSITORY}/caddy:latest
+
+artifacts:
+  objects:
+    location: gs://${_SBOM_BUCKET}/caddy/$COMMIT_SHA/
+    paths: ['/workspace/sbom/*.spdx.json']
+
+options:
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY
+  requestedVerifyOption: VERIFIED
+
+timeout: 7200s
