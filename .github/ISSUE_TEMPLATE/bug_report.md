@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 **Image tag(s) affected**
-<!-- e.g. europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:2.11.7 -->
+<!-- e.g. ghcr.io/sitespanel/caddy:2.11.7 -->
 
 **Describe the bug**
 <!-- A clear description of what's wrong -->

@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   caddy:
-    image: ${SITESPANEL_REGISTRY:-europe-docker.pkg.dev/PROJECT/sitespanel-images}/caddy:2.11.7
+    image: ${SITESPANEL_REGISTRY:-ghcr.io/sitespanel}/caddy:2.11.7
     ports:
       - "80:80"
       - "443:443"

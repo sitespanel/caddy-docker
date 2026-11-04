@@ -1,11 +1,11 @@
 # Production-Ready Caddy Docker Image with Essential Plugins
 
-> **SitesPanel image source.** SitesPanel builds this image with Google Cloud Build and serves it from Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy`); see [CLOUDBUILD.md](CLOUDBUILD.md). Replace `PROJECT` with SitesPanel's Google Cloud project.
+> **SitesPanel image source.** Google Cloud Build builds this image and publishes it to the GitHub Container Registry as `ghcr.io/sitespanel/caddy`; see [CLOUDBUILD.md](CLOUDBUILD.md).
 
 
 This repository contains the build instructions for a customized [Caddy](https://caddyserver.com/) Docker image — a high-performance **reverse proxy** and **web server** with **automatic HTTPS** via Let's Encrypt. It includes the standard Caddy features plus a selection of commonly used plugins for DNS validation, caching, web application firewalling, rate limiting, and more.
 
-The image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (see [CLOUDBUILD.md](CLOUDBUILD.md)).
+The image is built by Google Cloud Build and published to the GitHub Container Registry (`ghcr.io/sitespanel`) (see [CLOUDBUILD.md](CLOUDBUILD.md)).
 
 ## ✨ Why This Image?
 
@@ -31,7 +31,7 @@ docker run -d --name caddy \
     -v /path/to/your/Caddyfile:/etc/caddy/Caddyfile:ro \
     -v caddy_data:/data \
     -v caddy_config:/config \
-    europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:latest
+    ghcr.io/sitespanel/caddy:latest
 ```
 
 ### Persistent Data
@@ -51,8 +51,8 @@ For more advanced use cases, you can use the [Caddy Admin API](https://caddyserv
 
 This image is tagged with two schemes:
 
-*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:latest`: Always points to the most recently built image from the `master` branch.
-*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:<version>`: (e.g., `europe-docker.pkg.dev/PROJECT/sitespanel-images/caddy:2.11.7`) A specific version tag corresponding to the version of Caddy used in the build.
+*   `ghcr.io/sitespanel/caddy:latest`: Always points to the most recently built image from the `master` branch.
+*   `ghcr.io/sitespanel/caddy:<version>`: (e.g., `ghcr.io/sitespanel/caddy:2.11.7`) A specific version tag corresponding to the version of Caddy used in the build.
 
 It is recommended to use a specific version tag in production environments for stability.
 
@@ -177,7 +177,7 @@ Matching is by IP range, so this catches declared crawler infrastructure — not
 that spoofs a user agent from a residential address.
 
 **Q: Can I use this image with FrankenPHP?**
-A: This is a standalone Caddy image. For a pre-configured Caddy+PHP setup, use the [europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp](https://github.com/sitespanel/frankenphp-docker) image instead, which bundles this same Caddy plugin stack with PHP.
+A: This is a standalone Caddy image. For a pre-configured Caddy+PHP setup, use the [ghcr.io/sitespanel/frankenphp](https://github.com/sitespanel/frankenphp-docker) image instead, which bundles this same Caddy plugin stack with PHP.
 
 ---
 
@@ -186,7 +186,7 @@ A: This is a standalone Caddy image. For a pre-configured Caddy+PHP setup, use t
 ## Related Images & Tools
 
 <!-- BEGIN GENERATED: related (from images.yaml in the org .github repository; do not edit by hand) -->
-Every image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images`), with SLSA provenance and an SBOM per image.
+Every image is built by Google Cloud Build and published to the GitHub Container Registry (`ghcr.io/sitespanel`), with an SBOM attached to each image.
 
 | Repository | Images | Description |
 |---|---|---|
