@@ -1,4 +1,4 @@
-FROM caddy:2.11.7-builder AS builder
+FROM caddy:2.11.9-builder AS builder
 
 RUN apk add --no-cache build-base brotli-dev
 
@@ -20,7 +20,7 @@ RUN CGO_ENABLED=1 \
     --with github.com/darkweak/storages/otter/caddy@v0.0.20 \
     --with github.com/darkweak/storages/simplefs/caddy@v0.0.20
 
-FROM caddy:2.11.7
+FROM caddy:2.11.9
 
 LABEL org.opencontainers.image.title="caddy" \
       org.opencontainers.image.description="Caddy with Coraza WAF, rate limiting, IP blocking, Brotli, Souin cache and 6 DNS providers" \
