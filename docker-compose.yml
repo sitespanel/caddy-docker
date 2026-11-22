@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   caddy:
-    image: ${SITESPANEL_REGISTRY:-ghcr.io/sitespanel}/caddy:2.11.7
+    image: ${SITESPANEL_REGISTRY:-ghcr.io/sitespanel}/caddy:2.11.9
     ports:
       - "80:80"
       - "443:443"

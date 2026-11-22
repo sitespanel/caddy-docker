@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 **Image tag(s) affected**
-<!-- e.g. ghcr.io/sitespanel/caddy:2.11.7 -->
+<!-- e.g. ghcr.io/sitespanel/caddy:2.11.9 -->
 
 **Describe the bug**
 <!-- A clear description of what's wrong -->

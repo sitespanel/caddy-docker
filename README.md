@@ -54,7 +54,7 @@ For more advanced use cases, you can use the [Caddy Admin API](https://caddyserv
 This image is tagged with two schemes:
 
 *   `ghcr.io/sitespanel/caddy:latest`: Always points to the most recently built image from the `master` branch.
-*   `ghcr.io/sitespanel/caddy:<version>`: (e.g., `ghcr.io/sitespanel/caddy:2.11.7`) A specific version tag corresponding to the version of Caddy used in the build.
+*   `ghcr.io/sitespanel/caddy:<version>`: (e.g., `ghcr.io/sitespanel/caddy:2.11.9`) A specific version tag corresponding to the version of Caddy used in the build.
 
 It is recommended to use a specific version tag in production environments for stability.
 
