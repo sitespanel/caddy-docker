@@ -21,7 +21,7 @@ Thanks for your interest in improving this Caddy Docker image!
    docker build -t test-caddy .
    docker run --rm test-caddy version
    ```
-4. Open a PR against `master` with a clear description
+4. Open a PR against `main` with a clear description
 
 ## Project Structure
 
