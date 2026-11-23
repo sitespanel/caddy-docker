@@ -26,7 +26,7 @@ FROM caddy:2.11.9
 LABEL org.opencontainers.image.title="caddy" \
       org.opencontainers.image.description="Caddy with Coraza WAF, rate limiting, IP blocking, Brotli, Souin cache and 6 DNS providers" \
       org.opencontainers.image.source="https://github.com/sitespanel/caddy-docker" \
-      org.opencontainers.image.licenses="MIT"
+      org.opencontainers.image.licenses="Apache-2.0"
 
 # Alpine security fixes released after the upstream caddy image was built (a fixable critical CVE stops the image build).
 RUN apk upgrade --no-cache

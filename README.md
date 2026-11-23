@@ -207,3 +207,7 @@ If you have suggestions or find a bug, please [open an issue](https://github.com
 ---
 
 ⭐ **If this project helps you, consider giving it a star!**
+
+## Licence
+
+MIT for this repository's build files ([LICENSE](LICENSE)). The image packages Caddy, which is under the [Apache License 2.0](https://github.com/caddyserver/caddy/blob/master/LICENSE), and the Caddy modules built into it, each under its own licence (see each module's repository, listed in the `Dockerfile`).
